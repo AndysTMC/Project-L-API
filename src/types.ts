@@ -18,7 +18,6 @@ export interface IUser extends Document {
         name: string,
         email: string;
         avatar: string | null,
-        theme: LTheme,
     },
     encryptedData: string,
     encryptedSecretKey: string,
@@ -53,11 +52,18 @@ export type AISettings = {
 	apiKey: string | null;
 };
 
+export type CloudSettings = {
+	email: string;
+	secretKey: string;
+	lastSyncTS: LTimeStamp;
+}
+
 export interface UserSettings {
 	gettingStarted: {
 		isFirstTimeUser: boolean;
 	};
 	ai: AISettings;
+	cloud: CloudSettings | null;
 }
 
 export enum ReminderType {

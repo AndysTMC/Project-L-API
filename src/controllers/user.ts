@@ -123,7 +123,7 @@ export async function verifyEmailUpdate(req: Request, res: Response): Promise<vo
 }
 
 export async function updateUserData(req: Request, res: Response) {
-    const { email, name, avatar, theme, encryptedUserData } = req.body;
+    const { email, name, avatar, encryptedUserData } = req.body;
     if (!email || !encryptedUserData) {
         res.status(400).json({ message: 'Email, userData and firstPartDKey are required' });
         return;
@@ -135,7 +135,6 @@ export async function updateUserData(req: Request, res: Response) {
     }
     existingUser.profile.name = name || existingUser.profile.name;
     existingUser.profile.avatar = avatar || existingUser.profile.avatar;
-    existingUser.profile.theme = theme || existingUser.profile.theme;
     existingUser.encryptedData = encryptedUserData;
     await existingUser.save();
     res.status(200).json({ message: 'User data updated successfully' });
@@ -152,8 +151,8 @@ export async function getUserData(req: Request, res: Response) {
         res.status(404).json({ message: 'User not found' });
         return;
     }
-    const { name, avatar, theme } = existingUser.profile;
-    res.status(200).json({ name, avatar, theme, encryptedUserData: existingUser.encryptedData });
+    const { name, avatar } = existingUser.profile;
+    res.status(200).json({ name, avatar, encryptedUserData: existingUser.encryptedData });
 }
 
 export async function recoverSecretKey(req: Request, res: Response) {

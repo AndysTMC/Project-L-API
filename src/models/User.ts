@@ -21,12 +21,7 @@ const UserSchema = new Schema({
         avatar: {
             type: String,
             default: null,
-        },
-        theme: {
-            type: String,
-            enum: [LTheme.LIGHT, LTheme.DARK],
-            default: LTheme.LIGHT,
-        },
+        }
     },
     encryptedData: {
         type: String,
